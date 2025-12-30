@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required, get_jwt_identity
 )
+from flask_cors import CORS
 
 from models import db, User, Product, ProductImage, Category, CartItem, Order, OrderItem
 
@@ -23,6 +24,8 @@ def create_app():
     return app
 
 app = create_app()
+# Enable CORS for the API during development — allow the frontend dev server
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5174", "http://127.0.0.1:5174"]}}, supports_credentials=True)
 db.init_app(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)

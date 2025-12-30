@@ -1,68 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Abaya Wera theme variables */
+  --abaya-almost-black: #0B0B0D;
+  --abaya-gold: #C59D5F;
+  --abaya-ivory: #F7F3EF;
+  --abaya-taupe: #6B6462;
+  --abaya-plum: #6A4B7C;
+  --primary: var(--abaya-almost-black);
+  --secondary: var(--abaya-ivory);
+  --accent: var(--abaya-gold);
+  --dark: var(--abaya-almost-black);
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/*
+  Compatibility / vendor-prefixed fallbacks
+  - Provide safe defaults for older browsers (Safari, mobile Chrome)
+  - Avoid overwriting component-level filter/backdrop-filter usages;
+    these fallbacks are non-invasive defaults.
+*/
+html {
+  /* Prevent unexpected text zoom on some mobile browsers */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  /* Font smoothing */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Ensure user-select works across Safari/Chrome */
+  -webkit-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+
+  /* Forced colors handling (non-invasive) */
+  forced-color-adjust: auto;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--abaya-ivory);
+  color: var(--dark);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Theme utility helpers */
+.theme-hero {
+  background: linear-gradient(180deg, rgba(11,11,13,0.95), rgba(106,75,124,0.85));
+  color: var(--secondary);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.text-gold {
+  color: var(--abaya-gold);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.bg-gold {
+  background-color: var(--abaya-gold);
+}
+
+.btn-gold {
+  background: linear-gradient(90deg, var(--abaya-gold), #d4a85a);
+  color: var(--abaya-almost-black);
+}
+
+
+/* Additional Abaya helpers */
+.text-ivory {
+  color: var(--abaya-ivory);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-ivory {
+  background-color: var(--abaya-ivory);
+}
+
+.btn-ivory {
+  background: var(--abaya-ivory);
+  color: var(--primary);
+}
+
+.card-accent {
+  border: 1px solid rgba(197,157,95,0.12);
+}
+
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8B5A8C;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6a4370;
 }
