@@ -85,9 +85,128 @@ def list_products():
             'description': p.description,
             'price': str(p.price),
             'stock': p.stock,
-            'cover_url': cover
+            'category_id': p.category_id,
+            'category': {'id': p.category.id, 'name': p.category.name} if p.category else None,
+            'cover_url': cover,
+            'images': [img.url for img in p.images]
         }
-    return jsonify([serialize(p) for p in products])
+    return jsonify({'products': [serialize(p) for p in products]})
+
+@app.route('/api/products', methods=['POST'])
+@admin_required
+def create_product():
+    title = request.form.get('title')
+    description = request.form.get('description')
+    price = request.form.get('price')
+    stock = request.form.get('stock', '0')
+    category_id = request.form.get('category_id')
+
+    if not title or not price:
+        return jsonify({'msg': 'title and price required'}), 400
+
+    # Create slug from title
+    slug = title.lower().replace(' ', '-').replace('é', 'e').replace('è', 'e')
+
+    p = Product(
+        title=title,
+        slug=slug,
+        description=description,
+        price=Decimal(str(price)),
+        stock=int(stock),
+        category_id=int(category_id) if category_id else None
+    )
+    db.session.add(p)
+    db.session.flush()
+
+    # Handle image upload
+    if 'image' in request.files:
+        f = request.files['image']
+        if f and f.filename:
+            filename = secure_filename(f.filename)
+            filename = f"{p.id}_{filename}"
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(save_path)
+            url = f'/uploads/{filename}'
+            img = ProductImage(product_id=p.id, url=url, is_cover=True)
+            db.session.add(img)
+
+    db.session.commit()
+    return jsonify({'msg': 'created', 'id': p.id}), 201
+
+@app.route('/api/products/<int:product_id>', methods=['PUT'])
+@admin_required
+def update_product(product_id):
+    p = Product.query.get_or_404(product_id)
+    
+    title = request.form.get('title')
+    description = request.form.get('description')
+    price = request.form.get('price')
+    stock = request.form.get('stock')
+    category_id = request.form.get('category_id')
+
+    if title:
+        p.title = title
+        p.slug = title.lower().replace(' ', '-').replace('é', 'e').replace('è', 'e')
+    if description is not None:
+        p.description = description
+    if price:
+        p.price = Decimal(str(price))
+    if stock:
+        p.stock = int(stock)
+    if category_id:
+        p.category_id = int(category_id)
+
+    # Handle image upload
+    if 'image' in request.files:
+        f = request.files['image']
+        if f and f.filename:
+            filename = secure_filename(f.filename)
+            filename = f"{p.id}_{filename}"
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(save_path)
+            url = f'/uploads/{filename}'
+            # Replace cover image
+            cover_img = ProductImage.query.filter_by(product_id=p.id, is_cover=True).first()
+            if cover_img:
+                db.session.delete(cover_img)
+            img = ProductImage(product_id=p.id, url=url, is_cover=True)
+            db.session.add(img)
+
+    db.session.commit()
+    return jsonify({'msg': 'updated'})
+
+@app.route('/api/products/<int:product_id>', methods=['DELETE'])
+@admin_required
+def delete_product(product_id):
+    p = Product.query.get_or_404(product_id)
+    # Delete images
+    for img in p.images:
+        if img.url.startswith('/'):
+            try:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], img.url.split('/')[-1]))
+            except:
+                pass
+    db.session.delete(p)
+    db.session.commit()
+    return jsonify({'msg': 'deleted'})
+
+@app.route('/api/categories', methods=['GET'])
+def list_categories():
+    categories = Category.query.all()
+    return jsonify({'categories': [{'id': c.id, 'name': c.name, 'slug': c.slug} for c in categories]})
+
+@app.route('/api/categories', methods=['POST'])
+@admin_required
+def create_category():
+    data = request.json or {}
+    name = data.get('name')
+    if not name:
+        return jsonify({'msg': 'name required'}), 400
+    slug = name.lower().replace(' ', '-')
+    c = Category(name=name, slug=slug)
+    db.session.add(c)
+    db.session.commit()
+    return jsonify({'msg': 'created', 'id': c.id}), 201
 
 @app.route('/api/products/<int:product_id>', methods=['GET'])
 def get_product(product_id):
@@ -103,10 +222,10 @@ def get_product(product_id):
         'images': images
     })
 
-# --- Admin CRUD for products ---
+# --- Admin CRUD for products (unique endpoints) ---
 @app.route('/api/admin/products', methods=['POST'])
 @admin_required
-def create_product():
+def admin_create_product():
     data = request.json or {}
     required = ('title','slug','price')
     if not all(k in data for k in required):
@@ -125,7 +244,7 @@ def create_product():
 
 @app.route('/api/admin/products/<int:product_id>', methods=['PUT'])
 @admin_required
-def update_product(product_id):
+def admin_update_product(product_id):
     p = Product.query.get_or_404(product_id)
     data = request.json or {}
     for field in ('title','slug','description'):
@@ -140,7 +259,7 @@ def update_product(product_id):
 
 @app.route('/api/admin/products/<int:product_id>', methods=['DELETE'])
 @admin_required
-def delete_product(product_id):
+def admin_delete_product(product_id):
     p = Product.query.get_or_404(product_id)
     db.session.delete(p)
     db.session.commit()

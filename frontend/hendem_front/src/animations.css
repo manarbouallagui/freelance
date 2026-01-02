@@ -105,6 +105,34 @@
   }
 }
 
+/* Logo Animations - Gucci Luxury Style */
+@keyframes logoScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 rgba(212, 175, 55, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+  }
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 /* Classes d'animation réutilisables */
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-in-out;
@@ -157,6 +185,50 @@
   animation: glow 2s ease-in-out infinite;
 }
 
+/* Logo Animation Classes */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.logo-img {
+  animation: logoFloat 3s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-img:hover {
+  animation: logoScale 0.6s ease-in-out;
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.3));
+}
+
+.logo-arabic {
+  animation: logoGlow 4s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-arabic:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+}
+
+/* Responsive Logo */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 0.5rem;
+  }
+  
+  .logo-img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-arabic {
+    max-height: 40px;
+  }
+}
+
 /* Hover Effects */
 .hover-lift {
   transition: all 0.3s ease;
@@ -203,6 +275,24 @@
 
 .btn-primary:hover::before {
   left: 100%;
+}
+
+/* Reusable subtle button animation for professional look */
+.btn-animate {
+  transition: transform 0.18s cubic-bezier(.2,.9,.3,1), box-shadow 0.18s ease, opacity 0.18s ease;
+  will-change: transform;
+}
+.btn-animate:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(60,46,42,0.08);
+}
+.btn-animate:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* Remove flashy gradient shimmer from CTAs; provide subtle shine via opacity */
+.btn-ghost-hover:hover {
+  opacity: 0.95;
 }
 
 /* Loading Skeleton */

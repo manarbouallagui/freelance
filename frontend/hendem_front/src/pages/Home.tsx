@@ -11,7 +11,7 @@ export const Home: React.FC = () => {
             <span className="text-gold mr-3">✦</span>Bienvenue à <span className="text-ivory">HENDEM</span>
           </h1>
           <p className="text-lg mb-8 text-ivory/90">
-            Découvrez notre collection exclusive de vêtements et accessoires haut de gamme
+            Découvrez notre collection exclusive de vêtements haut de gamme — abayas, kaftans et prêt-à-porter
           </p>
           <Link
             to="/products"
@@ -27,29 +27,29 @@ export const Home: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-dark">Pourquoi Nous Choisir</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl mb-4">🚚</div>
-              <h3 className="font-bold text-lg mb-2">Livraison Rapide</h3>
-              <p className="text-gray-600">Livraison en 24-48h dans toute la Tunisie</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center animate-slideUp">
+              <div className="text-4xl mb-4">�</div>
+              <h3 className="font-bold text-lg mb-2">Collections Vêtements</h3>
+              <p className="text-ivory/85">Abayas, kaftans et prêt-à-porter confectionnés avec soin</p>
             </div>
             
-            <div className="text-center">
-              <div className="text-4xl mb-4">💳</div>
-              <h3 className="font-bold text-lg mb-2">Paiement Sécurisé</h3>
-              <p className="text-gray-600">Tous les moyens de paiement acceptés</p>
+            <div className="text-center animate-slideUp">
+              <div className="text-4xl mb-4">🧵</div>
+              <h3 className="font-bold text-lg mb-2">Finitions Artisanales</h3>
+              <p className="text-ivory/85">Détails et broderies haut de gamme</p>
             </div>
             
-            <div className="text-center">
-              <div className="text-4xl mb-4">🔄</div>
-              <h3 className="font-bold text-lg mb-2">Retours Faciles</h3>
-              <p className="text-gray-600">30 jours pour retourner votre produit</p>
+            <div className="text-center animate-slideUp">
+              <div className="text-4xl mb-4">�</div>
+              <h3 className="font-bold text-lg mb-2">Livraison Soignée</h3>
+              <p className="text-ivory/85">Emballage soigné et expédition fiable</p>
             </div>
             
-            <div className="text-center">
-              <div className="text-4xl mb-4">👥</div>
-              <h3 className="font-bold text-lg mb-2">Support Client</h3>
-              <p className="text-gray-600">Disponible 24/7 pour vous aider</p>
+            <div className="text-center animate-slideUp">
+              <div className="text-4xl mb-4">🤝</div>
+              <h3 className="font-bold text-lg mb-2">Service Client</h3>
+              <p className="text-ivory/85">Conseils personnalisés et suivi de commande</p>
             </div>
           </div>
         </div>
@@ -60,18 +60,21 @@ export const Home: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Prêt à Faire du Shopping?</h2>
           <p className="mb-8 text-lg">Inscrivez-vous pour obtenir 10% de réduction sur votre première commande</p>
-          <div className="flex gap-4 justify-center flex-col md:flex-row">
+          <div className="flex gap-4 justify-center flex-col sm:flex-row items-center sm:items-stretch">
             <Link
               to="/register"
-              className="btn-gold px-8 py-3 rounded-full font-bold hover:opacity-95 transition"
+              className="w-full sm:w-auto btn-gold px-8 py-3 rounded-full font-bold hover:opacity-95 transition flex items-center justify-center gap-3 text-base sm:text-lg"
             >
-              S'inscrire
+              <span className="text-lg">🛍️</span>
+              <span>S'inscrire</span>
             </Link>
+
             <Link
               to="/contact"
-              className="border-2 border-gold px-8 py-3 rounded-full font-bold hover:bg-gold hover:text-ivory transition"
+              className="w-full sm:w-auto border-2 border-gold px-6 py-3 rounded-full font-medium hover:bg-gold hover:text-ivory transition flex items-center justify-center gap-3 text-sm sm:text-base"
             >
-              Nous Contacter
+              <span className="text-lg">✉️</span>
+              <span>Contactez-nous</span>
             </Link>
           </div>
         </div>

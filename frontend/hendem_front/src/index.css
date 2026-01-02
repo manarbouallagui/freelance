@@ -4,16 +4,21 @@
 @tailwind utilities;
 
 :root {
-  /* Abaya Wera theme variables */
-  --abaya-almost-black: #0B0B0D;
-  --abaya-gold: #C59D5F;
-  --abaya-ivory: #F7F3EF;
-  --abaya-taupe: #6B6462;
-  --abaya-plum: #6A4B7C;
-  --primary: var(--abaya-almost-black);
-  --secondary: var(--abaya-ivory);
-  --accent: var(--abaya-gold);
-  --dark: var(--abaya-almost-black);
+  /* Luxury Gold & Rose-Nude Palette (Gucci-inspired) */
+  --gold-primary: #D4AF37; /* rich gold */
+  --gold-light: #E8D4A8; /* light gold */
+  --gold-dark: #9B7D2C; /* dark gold */
+  --rose-nude: #F5E6E0; /* soft rose-nude */
+  --rose-dark: #E8C4B8; /* darker rose-nude */
+  --cream: #FEFDF9; /* off-white cream */
+  --text-dark: #2A2A2A; /* luxury dark text */
+  --text-light: #5A5A5A; /* secondary text */
+  --border-light: rgba(212, 175, 55, 0.15); /* subtle gold border */
+
+  --primary: var(--cream); /* page background */
+  --secondary: var(--text-dark); /* main text color */
+  --accent: var(--gold-primary); /* button/cta accent */
+  --dark: var(--text-dark);
 }
 
 /*
@@ -53,27 +58,56 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--abaya-ivory);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--rose-nude) 50%, var(--rose-dark) 100%);
+  background-attachment: fixed;
   color: var(--dark);
+  min-height: 100vh;
 }
 
 /* Theme utility helpers */
 .theme-hero {
-  background: linear-gradient(180deg, rgba(11,11,13,0.95), rgba(106,75,124,0.85));
+  /* Solid warm cream hero — no gradient for a professional, soft look */
+  background-color: var(--primary);
   color: var(--secondary);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
 }
 
 .text-gold {
-  color: var(--abaya-gold);
+  color: var(--gold-primary);
 }
 
 .bg-gold {
-  background-color: var(--abaya-gold);
+  background-color: var(--gold-primary);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+  color: var(--text-dark);
+  border: 1px solid var(--gold-dark);
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
 }
 
 .btn-gold {
-  background: linear-gradient(90deg, var(--abaya-gold), #d4a85a);
-  color: var(--abaya-almost-black);
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+  color: var(--text-dark);
+  border: none;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.15);
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 
@@ -100,11 +134,12 @@ body {
 
 .btn-ivory {
   background: var(--abaya-ivory);
-  color: var(--primary);
+  color: var(--abaya-text);
+  border: 1px solid rgba(60,46,42,0.04);
 }
 
 .card-accent {
-  border: 1px solid rgba(197,157,95,0.12);
+  border: 1px solid rgba(201,168,124,0.12);
 }
 
 

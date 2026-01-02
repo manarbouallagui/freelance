@@ -23,9 +23,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-bold mb-4 text-gold">Contact</h4>
             <ul className="space-y-2 text-ivory/85">
-              <li>Email: info@hendem.tn</li>
-              <li>Tél: +216 XX XXX XXX</li>
-              <li>Adresse: Tunis, Tunisie</li>
+              <li>Email: bouallaguijihene2@gmail.com</li>
+              <li>Tél: +216 92 845 007</li>
+              <li>Adresse: Kasserine, Tunisie</li>
             </ul>
           </div>
         </div>

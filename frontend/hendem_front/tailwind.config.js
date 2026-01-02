@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Abaya Wera theme
-        primary: '#0B0B0D', // almost black (fabric)
-        gold: '#C59D5F', // warm gold accent
-        ivory: '#F7F3EF', // light fabric/linen
-        taupe: '#6B6462', // muted tone
-        plum: '#6A4B7C', // deep plum accent
-        accent: '#C59D5F',
-        dark: '#0B0B0D',
+        // Neutral nude / soft natural palette (no strong pink gradients)
+        primary: '#FFF9F6', // warm cream background
+        accent: '#C9A87C', // soft camel / nude accent for buttons
+        ivory: '#FFF9F6', // same as primary
+        taupe: '#D6C6BD', // soft taupe
+        beige: '#E9E1DA', // light beige
+        text: '#3C2E2A', // warm brown text color
+        dark: '#3C2E2A',
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],

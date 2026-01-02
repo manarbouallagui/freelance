@@ -4,6 +4,8 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { MobileNav } from './MobileNav';
 import { SearchBar } from './SearchBar';
+import hendemLogo from '../assets/hendem.jpg';
+import arabeLogo from '../assets/arabe.png';
 
 export const Header: React.FC = () => {
   const { items } = useCart();
@@ -11,12 +13,20 @@ export const Header: React.FC = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-primary text-secondary shadow-md animate-slideDown">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex justify-between items-center mb-4">
-          <Link to="/" className="text-2xl font-bold text-ivory hover:opacity-90 transition flex items-center gap-3">
-            <span className="text-gold">✦</span>
-            <span className="font-display">HENDEM</span>
+    <header className="sticky top-0 z-40 bg-gradient-to-r from-cream to-rose-nude text-secondary shadow-lg animate-slideDown border-b border-gold/20">
+      <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="flex justify-between items-center mb-3">
+          <Link to="/" className="logo-container hover:opacity-90 transition group">
+            <img 
+              src={hendemLogo} 
+              alt="HENDEM Logo" 
+              className="logo-img h-12 w-12 object-cover rounded-sm group-hover:shadow-lg transition"
+            />
+            <img 
+              src={arabeLogo} 
+              alt="HENDEM Arabic Logo" 
+              className="logo-arabic h-12 object-contain transition"
+            />
           </Link>
 
           <SearchBar />
@@ -38,10 +48,14 @@ export const Header: React.FC = () => {
               </>
             )}
             
-            <Link to="/cart" className="relative group">
-              <span className="text-2xl hover:scale-110 transition">�️</span>
+            <Link 
+              to="/cart" 
+              className="relative group bg-gradient-to-r from-gold-primary to-gold-light hover:from-gold-dark hover:to-gold-primary text-white px-6 py-2.5 rounded-lg font-semibold text-sm flex items-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 uppercase tracking-wide"
+            >
+              <span className="text-lg">🛒</span>
+              <span>Panier</span>
               {items.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-pulse font-bold">
+                <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center animate-pulse font-bold border-2 border-white">
                   {items.length}
                 </span>
               )}
@@ -57,11 +71,11 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-6 justify-center">
-          <Link to="/" className="hover:text-primary transition font-medium">Accueil</Link>
-          <Link to="/products" className="hover:text-primary transition font-medium">Produits</Link>
-          <Link to="/about" className="hover:text-primary transition font-medium">À Propos</Link>
-          <Link to="/contact" className="hover:text-primary transition font-medium">Contact</Link>
+        <nav className="hidden md:flex space-x-8 justify-center border-t border-gold/10 pt-3">
+          <Link to="/" className="text-sm font-medium hover:text-gold transition uppercase tracking-wide">Accueil</Link>
+          <Link to="/products" className="text-sm font-medium hover:text-gold transition uppercase tracking-wide">Produits</Link>
+          <Link to="/about" className="text-sm font-medium hover:text-gold transition uppercase tracking-wide">À Propos</Link>
+          <Link to="/contact" className="text-sm font-medium hover:text-gold transition uppercase tracking-wide">Contact</Link>
         </nav>
       </div>
 
